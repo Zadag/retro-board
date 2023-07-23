@@ -3,7 +3,7 @@ import { useState, createContext, Dispatch, SetStateAction } from "react";
 type ThemePropType = "light" | "dark";
 export type ThemeContextType = {
   theme: ThemePropType;
-  toggleTheme: Dispatch<SetStateAction<ThemePropType>>;
+  toggleTheme: () => void; //Dispatch<SetStateAction<ThemePropType>>;
 };
 
 export const ThemeContext = createContext<ThemeContextType | null>(null);
