@@ -22,8 +22,8 @@
 }
 
 .theme-dark {
-  background-color: global.$primary-dark;
-  color: global.$primary-text-dark;
+  background-color: theme.$primary-dark;
+  color: theme.$primary-text-dark;
 }
 
 #app-wrapper {
