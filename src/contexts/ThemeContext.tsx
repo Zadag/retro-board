@@ -1,4 +1,5 @@
 import { useState, createContext, Dispatch, SetStateAction } from "react";
+import "../index.scss";
 
 type ThemePropType = "light" | "dark";
 export type ThemeContextType = {
