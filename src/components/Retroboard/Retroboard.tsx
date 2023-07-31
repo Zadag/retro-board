@@ -14,6 +14,7 @@ export type CategoryProp = {
   category: string;
   createItem: (itemInfo: ItemType) => void;
   editItem: (itemInfo: ItemType) => void;
+  removeItem: (itemInfo: ItemType) => void;
 };
 
 const Retroboard = (): React.ReactNode => {
@@ -50,18 +51,21 @@ const Retroboard = (): React.ReactNode => {
         category="went well"
         createItem={createItem}
         editItem={editItem}
+        removeItem={removeItem}
       />
       <Category
         items={items}
         category="needs improvement"
         createItem={createItem}
         editItem={editItem}
+        removeItem={removeItem}
       />
       <Category
         items={items}
         category="action items"
         createItem={createItem}
         editItem={editItem}
+        removeItem={removeItem}
       />
     </div>
   );

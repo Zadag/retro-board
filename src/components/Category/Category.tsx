@@ -6,11 +6,16 @@ type HandleChangeParams = {
   item: ItemType;
 };
 
+type HandleDeleteParams = {
+  item: ItemType;
+};
+
 const Category = ({
   items,
   category,
   createItem,
   editItem,
+  removeItem,
 }: CategoryProp): React.ReactNode => {
   const handleClick = () => {
     createItem({ name: "default name", category: category, id: "placeholder" });
@@ -18,6 +23,10 @@ const Category = ({
 
   const handleChange = ({ e, item }: HandleChangeParams) => {
     editItem({ name: e.target.value, category: category, id: item.id });
+  };
+
+  const handleDelete = ({ item }: HandleDeleteParams) => {
+    removeItem({ name: item.name, category: category, id: item.id });
   };
 
   return (
@@ -36,6 +45,7 @@ const Category = ({
               value={item.name}
               onChange={(e) => handleChange({ e, item })}
             />
+            <button onClick={() => handleDelete({ item })}>-</button>
           </div>
         );
       })}
