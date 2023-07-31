@@ -9,14 +9,17 @@ export type ItemType = {
   category: string;
 };
 
-export type ItemsProp = {
+export type CategoryProp = {
   items: ItemType[];
+  category: string;
+  createItem: (itemInfo: ItemType) => void;
+  editItem: (itemInfo: ItemType) => void;
 };
 
 const Retroboard = (): React.ReactNode => {
   const [items, setItems] = useState<ItemType[]>([
-    { id: "test", name: "first task", category: "all done" },
-    { id: "test2", name: "second task", category: "all done" },
+    { id: "test", name: "first task", category: "went well" },
+    { id: "test2", name: "second task", category: "action items" },
   ]);
 
   const createItem = (itemInfo: ItemType) => {
@@ -31,9 +34,35 @@ const Retroboard = (): React.ReactNode => {
     setItems([...newItems]);
   };
 
+  const editItem = (itemInfo: ItemType) => {
+    const newItems = items.map((item) => {
+      if (item.id === itemInfo.id) return itemInfo;
+      return item;
+    });
+
+    setItems([...newItems]);
+  };
+
   return (
     <div className="retro-board">
-      <Category items={items} />
+      <Category
+        items={items}
+        category="went well"
+        createItem={createItem}
+        editItem={editItem}
+      />
+      <Category
+        items={items}
+        category="needs improvement"
+        createItem={createItem}
+        editItem={editItem}
+      />
+      <Category
+        items={items}
+        category="action items"
+        createItem={createItem}
+        editItem={editItem}
+      />
     </div>
   );
 };
