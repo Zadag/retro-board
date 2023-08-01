@@ -15,6 +15,7 @@ export type CategoryProp = {
   createItem: (itemInfo: ItemType) => void;
   editItem: (itemInfo: ItemType) => void;
   removeItem: (itemInfo: ItemType) => void;
+  moveItem: (target: string, itemInfo: ItemType) => void;
 };
 
 const Retroboard = (): React.ReactNode => {
@@ -44,6 +45,28 @@ const Retroboard = (): React.ReactNode => {
     setItems([...newItems]);
   };
 
+  // This should probably be done better but I've run out of time ¯\_(ツ)_/¯
+  const moveItem = (target: string, itemInfo: ItemType) => {
+    const { name, id, category } = itemInfo;
+    let newCategory: string;
+    if (target === "left") {
+      if (category === "went well") newCategory = "action items";
+      if (category === "needs improvement") newCategory = "went well";
+      if (category === "action items") newCategory = "needs improvement";
+    } else if (target === "right") {
+      if (category === "went well") newCategory = "needs improvement";
+      if (category === "needs improvement") newCategory = "action items";
+      if (category === "action items") newCategory = "went well";
+    }
+
+    const newItem = { name, id, category: newCategory! };
+    // createItem(newItem);
+    // removeItem(itemInfo);
+
+    const newItems = items.filter((item) => item.id !== itemInfo.id);
+    setItems([...newItems, newItem]);
+  };
+
   return (
     <div className="retro-board">
       <Category
@@ -52,6 +75,7 @@ const Retroboard = (): React.ReactNode => {
         createItem={createItem}
         editItem={editItem}
         removeItem={removeItem}
+        moveItem={moveItem}
       />
       <Category
         items={items}
@@ -59,6 +83,7 @@ const Retroboard = (): React.ReactNode => {
         createItem={createItem}
         editItem={editItem}
         removeItem={removeItem}
+        moveItem={moveItem}
       />
       <Category
         items={items}
@@ -66,6 +91,7 @@ const Retroboard = (): React.ReactNode => {
         createItem={createItem}
         editItem={editItem}
         removeItem={removeItem}
+        moveItem={moveItem}
       />
     </div>
   );

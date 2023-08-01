@@ -16,6 +16,7 @@ const Category = ({
   createItem,
   editItem,
   removeItem,
+  moveItem,
 }: CategoryProp): React.ReactNode => {
   const handleClick = () => {
     createItem({ name: "default name", category: category, id: "placeholder" });
@@ -27,6 +28,10 @@ const Category = ({
 
   const handleDelete = ({ item }: HandleDeleteParams) => {
     removeItem({ name: item.name, category: category, id: item.id });
+  };
+
+  const handleMove = (target: string, item: ItemType) => {
+    moveItem(target, item);
   };
 
   return (
@@ -46,6 +51,8 @@ const Category = ({
               onChange={(e) => handleChange({ e, item })}
             />
             <button onClick={() => handleDelete({ item })}>-</button>
+            <button onClick={() => handleMove("left", item)}>{"<"}</button>
+            <button onClick={() => handleMove("right", item)}>{">"}</button>
           </div>
         );
       })}
