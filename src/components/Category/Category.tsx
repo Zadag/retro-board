@@ -19,15 +19,33 @@ const Category = ({
   moveItem,
 }: CategoryProp): React.ReactNode => {
   const handleClick = () => {
-    createItem({ name: "default name", category: category, id: "placeholder" });
+    createItem({
+      name: "default name",
+      category: category,
+      id: "placeholder",
+      likes: 0,
+      dislikes: 0,
+    });
   };
 
   const handleChange = ({ e, item }: HandleChangeParams) => {
-    editItem({ name: e.target.value, category: category, id: item.id });
+    editItem({
+      name: e.target.value,
+      category: category,
+      id: item.id,
+      likes: 0,
+      dislikes: 0,
+    });
   };
 
   const handleDelete = ({ item }: HandleDeleteParams) => {
-    removeItem({ name: item.name, category: category, id: item.id });
+    removeItem({
+      name: item.name,
+      category: category,
+      id: item.id,
+      likes: 0,
+      dislikes: 0,
+    });
   };
 
   const handleMove = (target: string, item: ItemType) => {

@@ -7,6 +7,8 @@ export type ItemType = {
   id: string;
   name: string;
   category: string;
+  likes: number;
+  dislikes: number;
 };
 
 export type CategoryProp = {
@@ -20,15 +22,27 @@ export type CategoryProp = {
 
 const Retroboard = (): React.ReactNode => {
   const [items, setItems] = useState<ItemType[]>([
-    { id: "test", name: "first task", category: "went well" },
-    { id: "test2", name: "second task", category: "action items" },
+    {
+      id: "test",
+      name: "first task",
+      category: "went well",
+      likes: 0,
+      dislikes: 0,
+    },
+    {
+      id: "test2",
+      name: "second task",
+      category: "action items",
+      likes: 0,
+      dislikes: 0,
+    },
   ]);
 
   const createItem = (itemInfo: ItemType) => {
     const id = uuid();
     const { name, category } = itemInfo;
     // build new item obj and add to state
-    setItems([...items, { name, category, id }]);
+    setItems([...items, { name, category, id, likes: 0, dislikes: 0 }]);
   };
 
   const removeItem = (itemInfo: ItemType) => {
@@ -47,7 +61,7 @@ const Retroboard = (): React.ReactNode => {
 
   // This should probably be done better but I've run out of time ¯\_(ツ)_/¯
   const moveItem = (target: string, itemInfo: ItemType) => {
-    const { name, id, category } = itemInfo;
+    const { name, id, category, likes, dislikes } = itemInfo;
     let newCategory: string;
     if (target === "left") {
       if (category === "went well") newCategory = "action items";
@@ -59,9 +73,7 @@ const Retroboard = (): React.ReactNode => {
       if (category === "action items") newCategory = "went well";
     }
 
-    const newItem = { name, id, category: newCategory! };
-    // createItem(newItem);
-    // removeItem(itemInfo);
+    const newItem = { name, id, category: newCategory!, likes, dislikes };
 
     const newItems = items.filter((item) => item.id !== itemInfo.id);
     setItems([...newItems, newItem]);
