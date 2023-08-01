@@ -17,6 +17,8 @@ const Category = ({
   editItem,
   removeItem,
   moveItem,
+  addLike,
+  addDislike,
 }: CategoryProp): React.ReactNode => {
   const handleClick = () => {
     createItem({
@@ -33,8 +35,8 @@ const Category = ({
       name: e.target.value,
       category: category,
       id: item.id,
-      likes: 0,
-      dislikes: 0,
+      likes: item.likes,
+      dislikes: item.dislikes,
     });
   };
 
@@ -50,6 +52,14 @@ const Category = ({
 
   const handleMove = (target: string, item: ItemType) => {
     moveItem(target, item);
+  };
+
+  const handleLike = (item: ItemType) => {
+    addLike(item);
+  };
+
+  const handleDislike = (item: ItemType) => {
+    addDislike(item);
   };
 
   return (
@@ -71,6 +81,10 @@ const Category = ({
             <button onClick={() => handleDelete({ item })}>-</button>
             <button onClick={() => handleMove("left", item)}>{"<"}</button>
             <button onClick={() => handleMove("right", item)}>{">"}</button>
+            <button onClick={() => handleLike(item)}>like</button>
+            <p>{item.likes}</p>
+            <button onClick={() => handleDislike(item)}>dislike</button>
+            <p>{item.dislikes}</p>
           </div>
         );
       })}

@@ -18,6 +18,8 @@ export type CategoryProp = {
   editItem: (itemInfo: ItemType) => void;
   removeItem: (itemInfo: ItemType) => void;
   moveItem: (target: string, itemInfo: ItemType) => void;
+  addLike: (itenInfo: ItemType) => void;
+  addDislike: (itenInfo: ItemType) => void;
 };
 
 const Retroboard = (): React.ReactNode => {
@@ -79,6 +81,30 @@ const Retroboard = (): React.ReactNode => {
     setItems([...newItems, newItem]);
   };
 
+  const addLike = (itemInfo: ItemType) => {
+    const { name, id, category, likes, dislikes } = itemInfo;
+    const newLikes = likes + 1;
+    const newItems = items.map((item) => {
+      if (item.id === itemInfo.id)
+        return { name, id, category, likes: newLikes, dislikes };
+      return item;
+    });
+
+    setItems([...newItems]);
+  };
+
+  const addDislike = (itemInfo: ItemType) => {
+    const { name, id, category, likes, dislikes } = itemInfo;
+    const newDislikes = dislikes + 1;
+    const newItems = items.map((item) => {
+      if (item.id === itemInfo.id)
+        return { name, id, category, likes, dislikes: newDislikes };
+      return item;
+    });
+
+    setItems([...newItems]);
+  };
+
   return (
     <div className="retro-board">
       <Category
@@ -88,6 +114,8 @@ const Retroboard = (): React.ReactNode => {
         editItem={editItem}
         removeItem={removeItem}
         moveItem={moveItem}
+        addLike={addLike}
+        addDislike={addDislike}
       />
       <Category
         items={items}
@@ -96,6 +124,8 @@ const Retroboard = (): React.ReactNode => {
         editItem={editItem}
         removeItem={removeItem}
         moveItem={moveItem}
+        addLike={addLike}
+        addDislike={addDislike}
       />
       <Category
         items={items}
@@ -104,6 +134,8 @@ const Retroboard = (): React.ReactNode => {
         editItem={editItem}
         removeItem={removeItem}
         moveItem={moveItem}
+        addLike={addLike}
+        addDislike={addDislike}
       />
     </div>
   );
